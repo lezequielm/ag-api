@@ -3,15 +3,20 @@ package models
 import (
 	"github.com/astaxie/beego/orm"
 	"fmt"
+	"time"
 )
 
 type Person struct {
-	id int `orm:pk`
+	id int `orm:"pk"`
 	firstName string `json:"first_name"`
 	lastName string `json:"last_name"`
-	createAt orm.DateTimeField `json:"create_at"`
-	modifyAt orm.DateTimeField `json:"modify_at"`
+	createAt time.Time `json:"create_at"`
+	modifyAt time.Time `json:"modify_at"`
 	enabled bool `json:"enabled"`
+}
+
+func init() {
+	orm.RegisterModel(new(Person))
 }
 
 func GetOnePerson(id int) (Person, error) {
