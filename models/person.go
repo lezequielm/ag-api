@@ -6,7 +6,7 @@ import (
 )
 
 type Person struct {
-	id int `orm:"pk"json:"id"`
+	id int `orm:pk`
 	firstName string `json:"first_name"`
 	lastName string `json:"last_name"`
 	createAt orm.DateTimeField `json:"create_at"`
