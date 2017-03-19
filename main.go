@@ -7,15 +7,21 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/lezequielm/ag-api/models"
+	"fmt"
 )
 
 func init() {
 	orm.RegisterDriver("sqlite3", orm.DRSqlite)
 	err:=orm.RegisterDataBase("default", "sqlite3", "file:data.db")
 	orm.RegisterModel(new(models.Person))
+	name := "default"
+	force := true
+	verbose := true
+	err = orm.RunSyncdb(name, force, verbose)
 	if err!=nil{
 		panic(err)
 	}
+
 }
 
 func main() {
