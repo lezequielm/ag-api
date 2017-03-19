@@ -7,7 +7,6 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/lezequielm/ag-api/models"
-	"fmt"
 )
 
 func init() {
