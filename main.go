@@ -4,7 +4,16 @@ import (
 	_ "github.com/lezequielm/ag-api/routers"
 
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 )
+
+func init() {
+	orm.RegisterDriver("sqlite3", orm.DRSqlite)
+	err:=orm.RegisterDataBase("default", "sqlite3", "file:data.db")
+	if err!=nil{
+		panic(err)
+	}
+}
 
 func main() {
 	if beego.BConfig.RunMode == "dev" {
