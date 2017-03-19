@@ -28,10 +28,10 @@ func (p *PersonController) Post() {
 }
 
 // @Title Get
-// @Description find object by objectid
-// @Param	objectId		path 	string	true		"the objectid you want to get"
-// @Success 200 {object} models.Object
-// @Failure 403 :objectId is empty
+// @Description find person by personId
+// @Param	personId		path 	int	true		"the personid you want to get"
+// @Success 200 {person} models.Person
+// @Failure 403 :personId is empty
 // @router /:personId [get]
 func (p *PersonController) Get() {
 	personId := p.Ctx.Input.Param(":personId")
@@ -47,9 +47,8 @@ func (p *PersonController) Get() {
 }
 
 // @Title GetAll
-// @Description get all objects
-// @Success 200 {object} models.Object
-// @Failure 403 :objectId is empty
+// @Description get all persons
+// @Success 200 {person} models.Person
 // @router / [get]
 func (p *PersonController) GetAll() {
 	prs, err := models.GetAllPersons()
