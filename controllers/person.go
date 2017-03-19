@@ -5,6 +5,7 @@ import (
 	"github.com/lezequielm/ag-api/models"
 	"encoding/json"
 	"github.com/astaxie/beego/orm"
+	"strconv"
 )
 
 type PersonController struct {
@@ -20,10 +21,13 @@ type PersonController struct {
 func (p *PersonController) Post() {
 	var pr models.Person
 	json.Unmarshal(p.Ctx.Input.RequestBody, &pr)
-	personId := models.AddOne(pr)
 	o := orm.NewOrm()
-	o.Insert(pr)
-	p.Data["json"] = map[string]string{"id": personId}
+	_, err := o.Insert(pr)
+	if err != nil {
+		p.Data["json"] = err.Error()
+	} else {
+		p.Data["json"] = pr
+	}
 	p.ServeJSON()
 }
 
@@ -36,7 +40,8 @@ func (p *PersonController) Post() {
 func (p *PersonController) Get() {
 	personId := p.Ctx.Input.Param(":personId")
 	if personId != "" {
-		pr, err := models.GetOnePerson(personId)
+		intId, err := strconv.ParseInt(personId, 10, 32)
+		pr, err := models.GetOnePerson(int(intId))
 		if err != nil {
 			p.Data["json"] = err.Error()
 		} else {
