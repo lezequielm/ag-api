@@ -7,7 +7,7 @@ import (
 )
 
 type Person struct {
-	id int `orm:"pk"`
+	Id int `orm:"pk"`
 	firstName string `json:"first_name"`
 	lastName string `json:"last_name"`
 	createAt time.Time `json:"create_at"`
@@ -22,7 +22,7 @@ func init() {
 func GetOnePerson(id int) (Person, error) {
 	o := orm.NewOrm()
 	o.Using("default")
-	p := Person{id: id}
+	p := Person{Id: id}
 	err := o.Read(&p)
 	return p, err
 }
